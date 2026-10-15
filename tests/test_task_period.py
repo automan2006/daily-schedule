@@ -66,6 +66,49 @@ class TaskPeriodTests(unittest.TestCase):
         result = subprocess.run([sys.executable, str(SCRIPT), '--now', '2026-10-15T12:00:00+08:00', '--deadline', '2026-10-18'], check=True, capture_output=True, text=True)
         self.assertEqual(json.loads(result.stdout)['end_date'], '2026-10-19')
 
+    def display(self, **kwargs):
+        return MODULE.compute_task_display('2026-10-15T12:00:00+08:00', **kwargs)
+
+    def test_short_task_also_has_calendar_entry(self):
+        events = self.display(deadline='2026-10-15T17:00:00+08:00')['events']
+        self.assertEqual([(x['type'], x['start_date'], x['end_date']) for x in events], [('date_task', '2026-10-15', '2026-10-16')])
+
+    def test_undated_task_uses_capture_day_without_inventing_due(self):
+        result = self.display()
+        self.assertEqual(result['events'][0]['date_source'], 'capture_day')
+        self.assertEqual(result['events'][0]['start_date'], '2026-10-15')
+        self.assertFalse(result['invented_todoist_due_date'])
+
+    def test_planned_day_overrides_short_deadline_day(self):
+        event = self.display(deadline='2026-10-16T11:00:00+08:00', planned_date='2026-10-15')['events'][0]
+        self.assertEqual(event['date_source'], 'planned_date')
+        self.assertEqual(event['start_date'], '2026-10-15')
+
+    def test_planned_day_without_deadline_has_calendar_entry(self):
+        events = self.display(planned_date='2026-10-21')['events']
+        self.assertEqual(events[0]['start_date'], '2026-10-21')
+        self.assertEqual(events[0]['type'], 'date_task')
+
+    def test_long_task_and_execution_have_distinct_entries(self):
+        events = self.display(deadline='2026-10-18', execution_start='2026-10-16T19:00:00+08:00', execution_end='2026-10-16T21:00:00+08:00')['events']
+        self.assertEqual([e['type'] for e in events], ['period', 'execution'])
+
+    def test_execution_avoids_redundant_single_day_task_entry(self):
+        events = self.display(execution_start='2026-10-15T19:00:00+08:00', execution_end='2026-10-15T21:00:00+08:00')['events']
+        self.assertEqual([e['type'] for e in events], ['execution'])
+
+    def test_incomplete_execution_needs_missing_end(self):
+        with self.assertRaises(ValueError):
+            self.display(execution_start='2026-10-15T19:00:00+08:00')
+
+    def test_reversed_execution_is_rejected(self):
+        with self.assertRaises(ValueError):
+            self.display(execution_start='2026-10-15T21:00:00+08:00', execution_end='2026-10-15T19:00:00+08:00')
+
+    def test_display_cli_accepts_undated_task(self):
+        result = subprocess.run([sys.executable, str(SCRIPT), '--display', '--now', '2026-10-15T12:00:00+08:00'], check=True, capture_output=True, text=True)
+        self.assertEqual(json.loads(result.stdout)['events'][0]['type'], 'date_task')
+
 
 if __name__ == '__main__':
     unittest.main()

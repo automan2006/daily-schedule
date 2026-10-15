@@ -2,6 +2,10 @@
 
 依赖 Google Calendar 与 Todoist: To Do List & Calendar 两个已有应用，账号凭据由宿主管理。工具前缀可随平台变化，以当次工具定义为准；不把本机工具名、用户 ID 或旧时区固化为运行条件。
 
+## 分类门槛
+
+仅已经确定是任务时使用 Todoist 创建/完成/恢复工具。Calendar 普通日程、重复课程及预约不产生待办；Google Calendar 中的任务展示仍使用普通 Event，而不是 Google Tasks。标题有具体时间、已经存在于日历或日程刚结束，都不构成创建 Todoist 任务的依据。
+
 ## Todoist
 
 - user_info：校验当前时区与账户能力。find_tasks/find_tasks_by_date/search：查找候选并处理分页。fetch_object(type="task", id, includeChildren=true)：修改前读取详情、删除前识别子任务。
@@ -22,7 +26,7 @@
 - update_event：只改要求字段；切换全天/定时需同时提供起止边界。保留参与人和重复规则。支持 update_scope=this_instance/entire_series/this_and_following，以实际实例/系列详情确定目标。
 - this_and_following 不是原子操作，失败后停止重复写入，读取原系列与可能新建的后续系列，报告可验证的影响。
 - delete_event：只有 event_id/calendar_id，没有单独删除范围参数。查明与指令范围对应的实例 ID 或主系列 ID 后直接使用；无法表达“本次及以后”等请求时不要猜测操作。
-- 周期条目用描述标记 Daily Schedule 类型=period、Todoist task ID、原始周期开始日期、截止与优先级；定时执行块标记类型=execution。不要从标题相似推定类型。修改截止只更新 period 边界，不覆盖 execution。
+- 周期条目用描述标记 Daily Schedule 类型=period 或 date_task、Todoist task ID、原始周期开始日期、截止与优先级；定时执行块标记类型=execution。不要从标题相似推定类型。修改截止更新 period 边界或依日期来源需要移动的 date_task，不覆盖 execution。无日期任务的收集日只属于展示元数据，不能回写成 Todoist due/deadline。
 - reminders 根据用户明确要求和工具 schema 设置。日历没有通用 Todoist 优先级字段；若用户要求日程优先级，可写入描述，不伪装为原生任务优先级。
 
 工具返回 successCount/failureCount、failures 或 isError 时逐项检查；通用“Action completed”不是关键日期或写入正确的充分证据，要检查结构化结果并读回。

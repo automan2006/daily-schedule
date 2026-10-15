@@ -1,7 +1,7 @@
 {
   "interface": {
     "display_name": "Daily Schedule",
-    "short_description": "管理日程与待办，将跨天截止任务显示为全天周期日程并保持关联",
+    "short_description": "所有任务同步到日历并保留待办，纯日程不产生需要勾选的任务",
     "default_prompt": "使用 $daily-planner，帮我把计划写入 Todoist 和 Google Calendar，并核验操作结果。"
   },
   "policy": {
