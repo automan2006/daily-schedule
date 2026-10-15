@@ -12,12 +12,12 @@
     "developerName": "automan2006",
     "displayName": "Daily Schedule",
     "logo": "./assets/planner.svg",
-    "longDescription": "复用 Google Calendar 和 Todoist 连接：任务只进入 Todoist，日程只进入 Calendar，明确安排任务执行时段时建立一个待办和关联日程。支持查询、新增、修改、延期、完成和删除；对明确指令直接执行，不额外确认，默认北京时间。按聊天指令执行，不提供后台持续同步；各端须有对应连接权限。",
-    "shortDescription": "一句话管理日程、待办、截止日期与优先级"
+    "longDescription": "任务进入 Todoist；距离截止超过 24 小时的任务同时建立从开始日延续到截止日的透明全天周期条目，保留一个待办；明确执行时段时另建时间块。支持截止延期及完成状态同步、优先级、重复事项与直接执行明确指令。按聊天指令运行，默认北京时间，各端需连接相应应用。",
+    "shortDescription": "日历与待办管理，跨天任务自动显示为周期日程"
   },
   "name": "daily-planner",
-  "version": "0.1.2",
-  "description": "用自然语言管理 Google Calendar 日程与 Todoist 待办，区分截止日期和执行时间，支持修改、延期、完成与删除，明确指令直接执行。",
+  "version": "0.2.0",
+  "description": "用自然语言管理 Google Calendar 和 Todoist；超过一天截止的任务建立跨天全天日程并保留待办，支持修改、延期、完成和直接执行明确指令。",
   "author": {
     "name": "automan2006"
   },

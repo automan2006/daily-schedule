@@ -39,8 +39,8 @@ def build():
     assert agent['policy']['allow_implicit_invocation'] is True
     assert '$daily-planner' in agent['interface']['default_prompt']
     files = [ROOT / 'plugin.json', ROOT / '.app.json', ROOT / '.codex-plugin/plugin.json', ROOT / 'LICENSE']
-    files += sorted(p for directory in ('skills', 'assets') for p in (ROOT / directory).rglob('*') if p.is_file())
-    assert len(files) == 10
+    files += sorted(p for directory in ('skills', 'assets') for p in (ROOT / directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
+    assert len(files) == 12
     for path in files:
         assert not path.is_symlink()
         text = path.read_text(encoding='utf-8')

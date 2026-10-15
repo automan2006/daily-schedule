@@ -1,7 +1,7 @@
 {
   "interface": {
     "display_name": "Daily Schedule",
-    "short_description": "直接执行明确指令，管理日程、待办、截止日期、优先级与删除",
+    "short_description": "管理日程与待办，将跨天截止任务显示为全天周期日程并保持关联",
     "default_prompt": "使用 $daily-planner，帮我把计划写入 Todoist 和 Google Calendar，并核验操作结果。"
   },
   "policy": {
