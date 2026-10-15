@@ -1,0 +1,29 @@
+{
+  "apps": "./.app.json",
+  "interface": {
+    "capabilities": [],
+    "category": "Productivity",
+    "composerIcon": "./assets/planner.svg",
+    "defaultPrompt": [
+      "使用 $daily-planner，帮我管理今天的任务和日程，按需要写入 Todoist 或 Google Calendar。",
+      "使用 $daily-planner，周五前交报告，明晚七点到九点写，优先级高。",
+      "使用 $daily-planner，查看本周日程、待办和即将截止的事项。"
+    ],
+    "developerName": "automan2006",
+    "displayName": "Daily Schedule",
+    "logo": "./assets/planner.svg",
+    "longDescription": "复用 Google Calendar 和 Todoist 连接：任务只进入 Todoist，日程只进入 Calendar，明确安排任务执行时段时建立一个待办和关联日程。支持查询、新增、修改、延期、完成和删除；对明确指令直接执行，不额外确认，默认北京时间。按聊天指令执行，不提供后台持续同步；各端须有对应连接权限。",
+    "shortDescription": "一句话管理日程、待办、截止日期与优先级"
+  },
+  "name": "daily-planner",
+  "version": "0.1.2",
+  "description": "用自然语言管理 Google Calendar 日程与 Todoist 待办，区分截止日期和执行时间，支持修改、延期、完成与删除，明确指令直接执行。",
+  "author": {
+    "name": "automan2006"
+  },
+  "keywords": [],
+  "skills": "./skills",
+  "license": "MIT",
+  "homepage": "https://github.com/automan2006/daily-schedule",
+  "repository": "https://github.com/automan2006/daily-schedule"
+}

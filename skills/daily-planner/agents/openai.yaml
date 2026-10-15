@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Daily Schedule",
+    "short_description": "直接执行明确指令，管理日程、待办、截止日期、优先级与删除",
+    "default_prompt": "使用 $daily-planner，帮我把计划写入 Todoist 和 Google Calendar，并核验操作结果。"
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

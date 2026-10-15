@@ -1,0 +1,12 @@
+{
+  "apps": {
+    "google-calendar": {
+      "id": "connector_947e0d954944416db111db556030eea6",
+      "required": true
+    },
+    "todoist": {
+      "id": "asdk_app_6943b73823548191a9f9216c6790c453",
+      "required": true
+    }
+  }
+}
